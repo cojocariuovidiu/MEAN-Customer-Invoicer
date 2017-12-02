@@ -43,7 +43,8 @@ const Customer = module.exports = mongoose.model("Customer", customerSchema);
 //Whenever Customers is capitalized, it refers to the model, Customers.
 module.exports.getCustomers = (callback, limit) => {
   //this gets all the customers and sorts them in ascending order
-  Customer.find(callback).limit(limit).sort(['first_name', 'ascending']);
+  //the .sort must be in double brackets so it is an array of arrays.
+  Customer.find(callback).limit(limit).sort([['first_name', 'ascending']]);
 }
 
 //Get a single Customer

@@ -41,20 +41,21 @@ const Invoice = module.exports = mongoose.model("Invoice", invoiceSchema);
 //Whenever Invoices is capitalized, it refers to the model, Invoices.
 module.exports.getInvoices = (callback, limit) => {
   //this gets all the invoices and sorts them in ascending order
-  Invoice.find(callback).limit(limit).sort(['created_at', 'ascending']);
+  Invoice.find(callback).limit(limit).sort([['created_at', 'ascending']]);
 }
 
-//Get a single Invoice
+//Get a single Invoice for a Customer
 module.exports.getInvoiceById = (id,callback) => {
   //this gets all the customers and sorts them in ascending order
   Invoice.findById(id, callback);
 }
 
-//Get Customer Invoices
+//Get Customer Invoices for a specific Customer
+//Limit is optional.
 module.exports.getCustomerInvoices = (customer_id,callback, limit) => {
   const query = {customer: customer_id};
   //this gets all the invoices and sorts them in ascending order
-  Invoice.find(query, callback).limit(limit).sort(['created_at', 'ascending']);
+  Invoice.find(query, callback).limit(limit).sort([['created_at', 'ascending']]);
 }
 
 //Add Invoice
@@ -69,6 +70,7 @@ module.exports.addInvoice = (customer, callback) => {
   Invoice.create(add, callback);
 }
 
+//Update an Invoice
 module.exports.updateInvoice = (id, invoice, options, callback) => {
   const query = {_id: id};//The id passed in should match the _id field.
   //creating an object called update
